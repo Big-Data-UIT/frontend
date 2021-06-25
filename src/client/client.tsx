@@ -16,8 +16,9 @@ export class ApiClient {
         this.userId = data?.userId || null;
     }
     // private BASE_URL : string = 
-    public async getMovieList(limit: number = 10): Promise<any> {
+    public async getMovieList(offset: number = 1,limit: number = 12): Promise<any> {
         const queryParams = {
+            offset,
             limit
         }
         const response = await fetch(`${this.BASE_URL}movie?${serialize(queryParams)}`, {
@@ -27,6 +28,22 @@ export class ApiClient {
             },
         })
         return response.json()
+
+    }
+    // private BASE_URL : string = 
+    public async getMovieListUnRate(offset: number = 1,limit: number = 12, userId : string): Promise<any> {
+        const queryParams = {
+            offset,
+            limit,
+            userId
+        }
+        const response = await fetch(`${this.BASE_URL}unrated-movie?${serialize(queryParams)}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            },
+        })
+        return response.json();
 
     }
     public async getRatings(limit: number): Promise<ApiResponse<Rating>> {
@@ -54,6 +71,7 @@ export class ApiClient {
         return response.json();
     }
     public async postMovieRating(movieId: string, rating: number, userId: string): Promise<any> {
+        console.log(movieId, rating, userId);
         const response = await fetch(`${this.BASE_URL}movie/ratings`, {
             method: "POST",
             headers: {
