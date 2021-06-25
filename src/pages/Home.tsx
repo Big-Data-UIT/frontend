@@ -18,8 +18,7 @@ export default function Home() {
     }, [])
 
     const handleRate = (movieId: string, rate: number) => {
-        console.log(movieId, rate);
-        apiClient.postMovieRating(movieId, rate);
+        apiClient.postMovieRating(movieId, rate, "999");
     }
     return (
         <Container

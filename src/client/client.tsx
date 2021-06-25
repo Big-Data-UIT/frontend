@@ -53,13 +53,13 @@ export class ApiClient {
         });
         return response.json();
     }
-    public async postMovieRating(movieId: string, rating: number): Promise<any> {
+    public async postMovieRating(movieId: string, rating: number, userId: string): Promise<any> {
         const response = await fetch(`${this.BASE_URL}movie/ratings`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ "movieId": movieId, "rating": rating, "userId": this.userId })
+            body: JSON.stringify({ "movieId": movieId, "rating": rating, "userId": userId || this.userId })
         });
         return response.json()
     }
