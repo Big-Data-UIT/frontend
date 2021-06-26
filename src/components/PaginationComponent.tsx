@@ -1,7 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -27,7 +33,9 @@ export default function PaginationComponent(props: Props) {
   }
   return (
     <div className={classes.root}>
-      <Pagination count={total} page={page} onChange={handleChange} variant="outlined" color="primary" />
+      <ThemeProvider theme={darkTheme}>
+        <Pagination count={total} page={page} onChange={handleChange} color="primary" />
+      </ThemeProvider>
     </div>
   );
 }

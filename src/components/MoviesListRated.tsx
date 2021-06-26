@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ApiClient, getApiClient } from '../client/client';
-import { Container, GridList, GridListTile, Typography} from '@material-ui/core'
+import { Typography} from '@material-ui/core'
 import PaginationComponent from '../components/PaginationComponent';
-import MovieCard from '../components/MovieCard';
+import SingleContent from '../components/SingleContent/SingleContent';
 import { Movie } from "../model/Movie";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      backgroundColor: theme.palette.background.paper,
-      marginTop: '50px'
+    moviesRatePage: {
+        paddingTop: '30px'
     },
-    gridList: {
-      width: 1200,
-      height: 500,
-      margin: '50px 0px 0px 0px !important' 
-    },
+    movies: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around'
+    }
   }));
 
 const MoviesListRated = () => {
@@ -53,19 +49,18 @@ const MoviesListRated = () => {
         setOffSet(newOffSet); 
     }
     return (
-        <>
-            <Container maxWidth='xl' className={classes.root}>
-                <Typography variant="h3" gutterBottom> Movie List Rated </Typography>
-                <GridList cellHeight='auto' className={classes.gridList} cols={12} spacing={40}>
-                    {movieList?.map((movie) => (
-                    <GridListTile key={movie.movieId} cols={3}>
-                        <MovieCard movie={movie} onRate={handleRate} />
-                    </GridListTile>
+        <div className={classes.moviesRatePage}>
+            <Typography variant="h4" className="pageTitle" > Movie List Rated </Typography>
+            <div className={classes.movies}>
+                    {movieList?.map((movie) => (                    
+                        <SingleContent 
+                            movie={movie} 
+                            onRate={handleRate}
+                        />
                     ))}
-                </GridList>
-            </Container>
+            </div>
             <PaginationComponent total={totalPage} page={page} onClickPageChange={handlePageChange}/>
-        </>
+        </div>
 
     )
 }
