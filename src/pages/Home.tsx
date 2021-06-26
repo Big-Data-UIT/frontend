@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
-    const apiClient: ApiClient = getApiClient({ userId: 9999 });
+    const apiClient: ApiClient = getApiClient({ userId: 1 });
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [page,setPage] = useState(1);
     const [offset,setOffSet] = useState(1);
@@ -36,11 +36,10 @@ export default function Home() {
     const limit = 12;
     useEffect(() => {
         console.log('here');
-        apiClient.getMovieListUnRate(offset,limit,'999').then((response) => {
+        apiClient.getMovieListUnRate(offset,limit,'1').then((response) => {
             if (response.status === 200) {
                 setMovieList(response.data);
                 setTotalPage(Math. round(response.total/limit));
-                console.log(response.data);
             }
         });
     }, [page,limit,setTotalPage]);
@@ -48,7 +47,7 @@ export default function Home() {
     
     const handleRate = (movieId: string, rate: number) => {
 
-        apiClient.postMovieRating(movieId, rate,'999').then((response) => {
+        apiClient.postMovieRating(movieId, rate,'1').then((response) => {
             if (response.status === 200) {
                 setSuccess(true);
             }
@@ -64,7 +63,7 @@ export default function Home() {
         <>
             {success ? <Toast isOpen={true} text='Rating Success' type='success' handleSuccess={handleSuccessAfterCloseToast}/> : <></>}
             <Container maxWidth='xl' className={classes.root}>
-                <Typography variant="h3" gutterBottom> Movie List Rated </Typography>
+                <Typography variant="h3" gutterBottom> Movie List UnRated </Typography>
                 <GridList cellHeight='auto' className={classes.gridList} cols={12} spacing={40}>
                     {movieList?.map((movie) => (
                     <GridListTile key={movie.movieId} cols={3}>

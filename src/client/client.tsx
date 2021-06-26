@@ -46,6 +46,40 @@ export class ApiClient {
         return response.json();
 
     }
+    
+     // private BASE_URL : string = 
+     public async getMovieListRated(offset: number = 1,limit: number = 12, userId : string): Promise<any> {
+        const queryParams = {
+            offset,
+            limit,
+            userId
+        }
+        const response = await fetch(`${this.BASE_URL}user/ratings?${serialize(queryParams)}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            },
+        })
+        return response.json();
+
+    }
+
+
+     // private BASE_URL : string = 
+     public async getMovieListRecommend(userId : string): Promise<any> {
+        const queryParams = {
+            userId
+        }
+        const response = await fetch(`${this.BASE_URL}user/recommend?${serialize(queryParams)}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            },
+        })
+        return response.json();
+
+    }
+
     public async getRatings(limit: number): Promise<ApiResponse<Rating>> {
         const queryParams = {
             limit

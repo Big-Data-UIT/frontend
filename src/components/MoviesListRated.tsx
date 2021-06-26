@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MoviesListRated = () => {
     const classes = useStyles();
-    const apiClient: ApiClient = getApiClient({ userId: 9999 });
+    const apiClient: ApiClient = getApiClient({ userId: 1 });
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [page,setPage] = useState(1);
     const [offset,setOffSet] = useState(1);
@@ -31,8 +31,8 @@ const MoviesListRated = () => {
     const limit = 4;
 
     useEffect(() => {
-        apiClient.getMovieList(offset,limit).then((response) => {
-            if (response.status === "OK") {
+        apiClient.getMovieListRated(offset,limit,'1').then((response) => {
+            if (response.status === 200) {
                 setMovieList(response.data);
                 setTotalPage(Math. round(response.total/limit));
             }
@@ -41,8 +41,8 @@ const MoviesListRated = () => {
 
     
     const handleRate = (movieId: string, rate: number) => {
-        apiClient.postMovieRating(movieId, rate,'999').then((response) => {
-            if (response.status === "OK") {
+        apiClient.postMovieRating(movieId, rate,'1').then((response) => {
+            if (response.status === 200) {
                 console.log(response);
             }
         });
