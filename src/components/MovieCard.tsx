@@ -30,6 +30,9 @@ export default function MovieCard(props: Props) {
                     <Typography variant="h6">
                         {movie.title}
                     </Typography>
+                    <p>
+                        Genres : {movie.genres}
+                    </p>
                 </Grid>
             </CardContent>
             <CardActions>
