@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Chart from './pages/Chart';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
-import { AppBar, Toolbar, Button, Typography, } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Typography, Container} from '@material-ui/core';
+import './App.css'
 export default function App() {
   return (
-    <div>
+    <BrowserRouter>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h4"
-            style={{ marginRight: "1em" }}
+            style={{ marginRight: "1em" , fontWeight: 800, cursor: 'pointer'}}
             onClick={() => { window.location.href = "/" }} 
           >
             MovieLens
@@ -19,19 +20,21 @@ export default function App() {
           <Button onClick={() => { window.location.href = "/profile" }} color="inherit">Profile</Button>
         </Toolbar>
       </AppBar>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" >
-            <Home />
-          </Route>
-          <Route exact path="/chart" >
-            <Chart />
-          </Route>
-          <Route exact path="/profile" >
-            <Profile />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+      <div className="app">
+        <Container>
+          <Switch>
+            <Route exact path="/" >
+              <Home />
+            </Route>
+            <Route exact path="/chart" >
+              <Chart />
+            </Route>
+            <Route exact path="/profile" >
+              <Profile />
+            </Route>
+          </Switch>
+        </Container>
+      </div>
+    </BrowserRouter>
   );
 }

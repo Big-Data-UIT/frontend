@@ -4,25 +4,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ApiClient, getApiClient } from "../client/client";
 import LineChartComponent from '../components/LineChartComponent';
 import PaginationComponent from '../components/PaginationComponent';
-import MovieCard from '../components/MovieCard';
+import SingleContent from '../components/SingleContent/SingleContent';
 import { Movie } from "../model/Movie";
-import Toast from '../components/Toast';
-
 import { io } from "socket.io-client"
+import Toast from '../components/Toast';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    homePage: {
+        paddingTop: '30px'
+    },
+    movies: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        backgroundColor: theme.palette.background.paper,
-        marginTop: '50px'
-    },
-    gridList: {
-        width: 1200,
-        margin: '50px 0px 0px 0px !important'
-    },
+        justifyContent: 'space-around'
+    }
 }));
 
 export default function Home() {
@@ -64,19 +60,18 @@ export default function Home() {
     }
     const handleSuccessAfterCloseToast = () => setSuccess(false);
     return (
-        <>
+        <div className={classes.homePage}>
             {success ? <Toast isOpen={true} text='Rating Success' type='success' handleSuccess={handleSuccessAfterCloseToast} /> : <></>}
-            <Container maxWidth='xl' className={classes.root}>
-                <Typography variant="h3" gutterBottom> Movie List UnRated </Typography>
-                <GridList cellHeight='auto' className={classes.gridList} cols={12} spacing={40}>
-                    {movieList?.map((movie) => (
-                        <GridListTile key={movie.movieId} cols={3}>
-                            <MovieCard movie={movie} onRate={handleRate} />
-                        </GridListTile>
-                    ))}
-                </GridList>
-            </Container>
+            <Typography variant="h4" className="pageTitle" > Movie List UnRated </Typography>
+            <div className={classes.movies}>
+                {movieList?.map((movie) => (
+                    <SingleContent
+                        movie={movie}
+                        onRate={handleRate}
+                    />
+                ))}
+            </div>
             <PaginationComponent total={totalPage} page={page} onClickPageChange={handlePageChange} />
-        </>
+        </div>
     )
 }
