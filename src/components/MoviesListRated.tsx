@@ -48,8 +48,8 @@ const MoviesListRated = () => {
         });
     }
     const handlePageChange = (value :any) => {
+        let newOffSet = (value == 1)? 1 : (value-1)*limit + 1;
         setPage(value);
-        let newOffSet = value + limit;
         setOffSet(newOffSet); 
     }
     return (

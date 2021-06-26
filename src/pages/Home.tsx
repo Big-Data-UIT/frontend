@@ -51,8 +51,6 @@ export default function Home() {
     }
     const handlePageChange = (value :any) => {
         let newOffSet = (value == 1)? 1 : (value-1)*limit + 1;
-        console.log(value);
-        console.log(newOffSet);
         setPage(value);
         setOffSet(newOffSet); 
     }
