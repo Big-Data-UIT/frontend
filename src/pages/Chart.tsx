@@ -39,7 +39,7 @@ export default function Chart() {
     }
     const onClick = () => {
         let rating = {
-            user: 1,
+            user: 999,
             movieId: 1,
             rating: 4.0
         }
