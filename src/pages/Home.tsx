@@ -5,7 +5,9 @@ import { ApiClient, getApiClient } from "../client/client";
 import LineChartComponent from '../components/LineChartComponent';
 import PaginationComponent from '../components/PaginationComponent';
 import MovieCard from '../components/MovieCard';
-import { Movie } from "../model/Movie"
+import { Movie } from "../model/Movie";
+import Toast from '../components/Toast';
+
 
 
 
@@ -30,6 +32,7 @@ export default function Home() {
     const [page,setPage] = useState(1);
     const [offset,setOffSet] = useState(1);
     const [totalPage,setTotalPage] = useState<number>(1);
+    const [success, setSuccess] = useState(false);
     const limit = 12;
     useEffect(() => {
         console.log('here');
@@ -37,15 +40,17 @@ export default function Home() {
             if (response.status === 200) {
                 setMovieList(response.data);
                 setTotalPage(Math. round(response.total/limit));
+                console.log(response.data);
             }
         });
     }, [page,limit,setTotalPage]);
 
     
     const handleRate = (movieId: string, rate: number) => {
+
         apiClient.postMovieRating(movieId, rate,'999').then((response) => {
-            if (response.status === "OK") {
-                console.log(response);
+            if (response.status === 200) {
+                setSuccess(true);
             }
         });
     }
@@ -54,8 +59,10 @@ export default function Home() {
         setPage(value);
         setOffSet(newOffSet); 
     }
+    const handleSuccessAfterCloseToast = () => setSuccess(false);
     return (
         <>
+            {success ? <Toast isOpen={true} text='Rating Success' type='success' handleSuccess={handleSuccessAfterCloseToast}/> : <></>}
             <Container maxWidth='xl' className={classes.root}>
                 <Typography variant="h3" gutterBottom> Movie List Rated </Typography>
                 <GridList cellHeight='auto' className={classes.gridList} cols={12} spacing={40}>
