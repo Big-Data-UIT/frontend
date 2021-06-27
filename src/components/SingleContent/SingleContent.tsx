@@ -22,6 +22,7 @@ const SingleContent = (props: Props) => {
         src={movie.Poster ? movie.Poster : 'https://www.movienewz.com/img/films/poster-holder.jpg'}
         alt={movie.title}
       />
+      <b className="title">{movie.movieId}</b>
       <b className="title">{movie.title}</b>
       <p className="subTitle"> Genres : <span>{movie.genres}</span></p>
       <p className="subTitle">{movie.year}</p>

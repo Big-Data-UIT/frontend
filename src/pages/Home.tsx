@@ -45,7 +45,7 @@ export default function Home() {
 
 
     const handleRate = (movieId: string, rate: number) => {
-        let rating = { "movieId": movieId, "rating": rate, "userId": "999" }
+        let rating = { "movieId": parseInt(movieId), "rating": rate, "userId": "999" }
         socket.emit("message", rating)
         // apiClient.postMovieRating(movieId, rate, '999').then((response) => {
         //     if (response.status === 200) {
